@@ -30,7 +30,7 @@ module.exports.userRegistration = async (req, res) => {
 
     const userData = await newUser.save();
 
-    const token = jwt.sign({ userId: userData._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId: userData._id }, "wageringapp");
 
     res.status(201).json({
       status: "success",
@@ -59,7 +59,7 @@ module.exports.userById = async (req, res) => {
       data: user,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res
       .status(500)
       .json({ status: "failed", message: "Unable to process request" });
@@ -90,7 +90,7 @@ module.exports.userLogin = async (req, res) => {
         .json({ status: "failed", message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId: user._id }, "wageringapp");
 
     res.status(200).json({
       status: "success",
@@ -99,10 +99,8 @@ module.exports.userLogin = async (req, res) => {
       user: user,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    console.log(error);
     res.status(500).json({ status: "failed", message: "Unable to login" });
   }
 };
-
-
-
